@@ -3,7 +3,6 @@ import 'package:flutter_uts_stokatk/Helpers/DbHelper.dart';
 import 'package:flutter_uts_stokatk/Models/Barang.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-
 import 'EntryForm.dart';
 
 //pendukung program asinkron
@@ -29,7 +28,22 @@ class HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar Stok Barang'),
+        title: Text(
+          'Daftar Stok Barang',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'CandaraBold',
+          ),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xff0096ff), Color(0xff6610f2)],
+              begin: FractionalOffset.bottomLeft,
+              end: FractionalOffset.topRight
+            )
+          ),
+        ),
       ),
 
       body: Column(children: [
@@ -38,11 +52,37 @@ class HomeState extends State<Home> {
         ),
         Container(
           alignment: Alignment.bottomCenter,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50.0),
+            gradient: LinearGradient(
+              // Where the linear gradient begins and ends
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              // Add one stop for each color. Stops should increase from 0 to 1
+              stops: [0.1, 0.9],
+              colors: [
+                // Colors are easy thanks to Flutter's Colors class.
+                Color(0xff0096ff),
+                Color(0xff6610f2),
+              ],
+            ),
+          ),
           child: SizedBox(
             width: double.infinity,
             // ignore: deprecated_member_use
             child: RaisedButton(
-              child: Text("Tambah Barang"),
+              child: Text(
+                "Tambah Barang",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'CandaraBold',
+                ),
+              ),
+              textColor: Colors.white,
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(60.0)
+              ),
               onPressed: () async {
                 var item = await navigateToEntryForm(context, null);
                 if (item != null) {
@@ -83,12 +123,14 @@ class HomeState extends State<Home> {
           elevation: 2.0,
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.amber,
               child: Icon(Icons.people),
             ),
             title: Text(
               this.itemList[index].kodeBrg,
-              style: textStyle,
+              style: TextStyle(
+                fontFamily: 'CandaraBold',
+              ),
             ),
             subtitle: 
               Container(
@@ -96,16 +138,25 @@ class HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Nama : ' + this.itemList[index].namaBrg
+                      'Nama : ' + this.itemList[index].namaBrg,
+                      style: TextStyle(
+                        fontFamily: 'Candara',
+                      ),
                     ),
                     Text(
-                      'Stok : ' + this.itemList[index].stokAkhir.toString()
+                      'Stok : ' + this.itemList[index].stokAkhir.toString(),
+                      style: TextStyle(
+                        fontFamily: 'Candara',
+                      ),
                     ),
                   ],
                 ),
               ),
             trailing: GestureDetector(
-              child: Icon(Icons.delete),
+              child: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
               onTap: () async {
                 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
                 int result = await dbHelper.delete(this.itemList[index]);

@@ -40,13 +40,37 @@ class EntryFormState extends State<EntryForm> {
     //rubah
     return Scaffold(
       appBar: AppBar(
-        title: barang == null ? Text('Tambah') : Text('Ubah'),
+        title: barang == null ? 
+        Text(
+          'Tambah',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'CandaraBold',
+          ),
+        ) 
+        : 
+        Text(
+          'Ubah',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'CandaraBold',
+          ),
+        ),
         leading: Container(
           child: new IconButton(
             icon: new Icon(Icons.keyboard_arrow_left,), 
             onPressed: (){
               Navigator.pop(context);
             },
+          ),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xff0096ff), Color(0xff6610f2)],
+              begin: FractionalOffset.bottomLeft,
+              end: FractionalOffset.topRight
+            )
           ),
         ),
       ),
@@ -63,6 +87,9 @@ class EntryFormState extends State<EntryForm> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: 'Kode Barang',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Candara',
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -81,6 +108,9 @@ class EntryFormState extends State<EntryForm> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: 'Nama Barang',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Candara',
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -99,6 +129,9 @@ class EntryFormState extends State<EntryForm> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: 'Satuan',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Candara',
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -117,6 +150,9 @@ class EntryFormState extends State<EntryForm> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Stok Awal',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Candara',
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -135,6 +171,9 @@ class EntryFormState extends State<EntryForm> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Barang Masuk',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Candara',
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -153,6 +192,9 @@ class EntryFormState extends State<EntryForm> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Barang Keluar',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Candara',
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -171,6 +213,9 @@ class EntryFormState extends State<EntryForm> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Stok Akhir',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Candara',
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -189,38 +234,62 @@ class EntryFormState extends State<EntryForm> {
                   // tombol simpan
                   Expanded(
                     // ignore: deprecated_member_use
-                    child: RaisedButton(
-                      color: Theme.of(context).primaryColorDark,
-                      textColor: Theme.of(context).primaryColorLight,
-                      child: Text(
-                        'Save',
-                        textScaleFactor: 1.5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50.0),
+                        gradient: LinearGradient(
+                          // Where the linear gradient begins and ends
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          // Add one stop for each color. Stops should increase from 0 to 1
+                          stops: [0.1, 0.9],
+                          colors: [
+                            // Colors are easy thanks to Flutter's Colors class.
+                            Color(0xff0096ff),
+                            Color(0xff6610f2),
+                          ],
+                        ),
                       ),
-                      onPressed: () {
-                        if (barang == null) {
-                          // tambah data
-                          barang = Barang(
-                            kodeBrgController.text,
-                            namaBrgController.text,
-                            satuanController.text,
-                            int.parse(stokAwalController.text),
-                            int.parse(inBrgController.text),
-                            int.parse(outBrgController.text),
-                            int.parse(stokAkhirController.text)
-                          );
-                        } else {
-                          // ubah data
-                          barang.kodeBrg = kodeBrgController.text;
-                          barang.namaBrg = namaBrgController.text;
-                          barang.satuan = satuanController.text;
-                          barang.stokAwal = int.parse(stokAwalController.text);
-                          barang.inBrg = int.parse(inBrgController.text);
-                          barang.outBrg = int.parse(outBrgController.text);
-                          barang.stokAkhir = int.parse(stokAkhirController.text);
-                        }
-                        // kembali ke layar sebelumnya dengan membawa objek item
-                        Navigator.pop(context, barang);
-                      },
+                      // ignore: deprecated_member_use
+                      child: RaisedButton(
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                            fontFamily: 'CandaraBold',
+                            color: Colors.white,
+                          ),
+                          textScaleFactor: 1.5,
+                        ),
+                        color: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(60.0)
+                        ),
+                        onPressed: () {
+                          if (barang == null) {
+                            // tambah data
+                            barang = Barang(
+                              kodeBrgController.text,
+                              namaBrgController.text,
+                              satuanController.text,
+                              int.parse(stokAwalController.text),
+                              int.parse(inBrgController.text),
+                              int.parse(outBrgController.text),
+                              int.parse(stokAkhirController.text)
+                            );
+                          } else {
+                            // ubah data
+                            barang.kodeBrg = kodeBrgController.text;
+                            barang.namaBrg = namaBrgController.text;
+                            barang.satuan = satuanController.text;
+                            barang.stokAwal = int.parse(stokAwalController.text);
+                            barang.inBrg = int.parse(inBrgController.text);
+                            barang.outBrg = int.parse(outBrgController.text);
+                            barang.stokAkhir = int.parse(stokAkhirController.text);
+                          }
+                          // kembali ke layar sebelumnya dengan membawa objek item
+                          Navigator.pop(context, barang);
+                        },
+                      ),
                     ),
                   ),
 
@@ -230,17 +299,40 @@ class EntryFormState extends State<EntryForm> {
 
                   // tombol batal
                   Expanded(
-                    // ignore: deprecated_member_use
-                    child: RaisedButton(
-                      color: Theme.of(context).primaryColorDark,
-                      textColor: Theme.of(context).primaryColorLight,
-                      child: Text(
-                        'Cancel',
-                        textScaleFactor: 1.5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50.0),
+                        gradient: LinearGradient(
+                          // Where the linear gradient begins and ends
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          // Add one stop for each color. Stops should increase from 0 to 1
+                          stops: [0.1, 0.9],
+                          colors: [
+                            // Colors are easy thanks to Flutter's Colors class.
+                            Color(0xff0096ff),
+                            Color(0xff6610f2),
+                          ],
+                        ),
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                      // ignore: deprecated_member_use
+                      child: RaisedButton(
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontFamily: 'CandaraBold',
+                            color: Colors.white,
+                          ),
+                          textScaleFactor: 1.5,
+                        ),
+                        color: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(60.0)
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
                   ),
                 ],

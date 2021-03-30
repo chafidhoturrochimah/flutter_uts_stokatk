@@ -188,6 +188,7 @@ class EntryFormState extends State<EntryForm> {
                 children: <Widget>[
                   // tombol simpan
                   Expanded(
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       color: Theme.of(context).primaryColorDark,
                       textColor: Theme.of(context).primaryColorLight,
@@ -213,9 +214,9 @@ class EntryFormState extends State<EntryForm> {
                           barang.namaBrg = namaBrgController.text;
                           barang.satuan = satuanController.text;
                           barang.stokAwal = int.parse(stokAwalController.text);
-                          barang.stokAwal = int.parse(inBrgController.text);
-                          barang.stokAwal = int.parse(outBrgController.text);
-                          barang.stokAwal = int.parse(stokAkhirController.text);
+                          barang.inBrg = int.parse(inBrgController.text);
+                          barang.outBrg = int.parse(outBrgController.text);
+                          barang.stokAkhir = int.parse(stokAkhirController.text);
                         }
                         // kembali ke layar sebelumnya dengan membawa objek item
                         Navigator.pop(context, barang);
@@ -229,6 +230,7 @@ class EntryFormState extends State<EntryForm> {
 
                   // tombol batal
                   Expanded(
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       color: Theme.of(context).primaryColorDark,
                       textColor: Theme.of(context).primaryColorLight,

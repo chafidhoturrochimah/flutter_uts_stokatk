@@ -95,6 +95,7 @@ class DbHelper {
   Future<List<Barang>> getBarangList() async {
     var barangMapList = await select();
     int count = barangMapList.length;
+    // ignore: deprecated_member_use
     List<Barang> itemList = List<Barang>();
     for (int i = 0; i < count; i++) {
       itemList.add(

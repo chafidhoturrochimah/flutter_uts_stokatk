@@ -42,7 +42,7 @@ class HomeState extends State<Home> {
             width: double.infinity,
             // ignore: deprecated_member_use
             child: RaisedButton(
-              child: Text("Tambah Item"),
+              child: Text("Tambah Barang"),
               onPressed: () async {
                 var item = await navigateToEntryForm(context, null);
                 if (item != null) {
@@ -99,7 +99,7 @@ class HomeState extends State<Home> {
                       'Nama : ' + this.itemList[index].namaBrg
                     ),
                     Text(
-                      'StokAkhir : ' + this.itemList[index].stokAkhir.toString()
+                      'Stok : ' + this.itemList[index].stokAkhir.toString()
                     ),
                   ],
                 ),

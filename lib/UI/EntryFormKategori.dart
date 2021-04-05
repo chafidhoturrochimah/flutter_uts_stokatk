@@ -51,7 +51,7 @@ class EntryFormKategoriState extends State<EntryFormKategori> {
           child: new IconButton(
             icon: new Icon(Icons.keyboard_arrow_left,), 
             onPressed: (){
-              Navigator.pop(context);
+              Navigator.pop(context, '/');
             },
           ),
         ),
@@ -183,7 +183,7 @@ class EntryFormKategoriState extends State<EntryFormKategori> {
                           borderRadius: BorderRadius.circular(60.0)
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pop(context, '/');
                         },
                       ),
                     ),

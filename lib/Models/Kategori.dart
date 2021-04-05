@@ -6,8 +6,8 @@ class Kategori {
   int get idkategori => this._idkategori;
   set idkategori (int value) => this._idkategori = value;
 
-  get namakategori => this._namakategori;
-  set namakategori ( value) => this._namakategori = value;
+  String get namakategori => this._namakategori;
+  set namakategori (String value) => this._namakategori = value;
 
   // konstruktor versi 1 untuk mengeset nilai
   Kategori(

@@ -44,7 +44,7 @@ class DbHelper {
       (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         kodeBrg TEXT,
-        idkategori int,
+        idkategori INTEGER,
         namaBrg TEXT,
         harga INTEGER,
         stokAwal INTEGER,

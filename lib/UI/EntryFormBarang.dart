@@ -37,6 +37,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
 
   void dropDownKategori() async {
     final Future<Database> dbFuture = dbHelper.initDb();
+
     dbFuture.then((database) {
       Future<List<Kategori>> itemListFuture = dbHelper.getKategoriList();
       itemListFuture.then((itemList) {
@@ -86,7 +87,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
           child: new IconButton(
             icon: new Icon(Icons.keyboard_arrow_left,), 
             onPressed: (){
-              Navigator.pop(context);
+              Navigator.pop(context, '/barang');
             },
           ),
         ),
@@ -381,7 +382,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
                           borderRadius: BorderRadius.circular(60.0)
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pop(context, '/barang');
                         },
                       ),
                     ),

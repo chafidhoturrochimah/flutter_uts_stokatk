@@ -29,7 +29,7 @@ class HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Daftar Stok Barang',
+          'Daftar Barang',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'CandaraBold',
@@ -92,6 +92,50 @@ class HomeState extends State<Home> {
                     updateListView();
                   }
                 }
+              },
+            ),
+          ),
+        ),
+
+        Container(
+          height: 5.0,
+        ),
+
+        Container(
+          alignment: Alignment.bottomCenter,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50.0),
+            gradient: LinearGradient(
+              // Where the linear gradient begins and ends
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              // Add one stop for each color. Stops should increase from 0 to 1
+              stops: [0.1, 0.9],
+              colors: [
+                // Colors are easy thanks to Flutter's Colors class.
+                Color(0xff0096ff),
+                Color(0xff6610f2),
+              ],
+            ),
+          ),
+          child: SizedBox(
+            width: double.infinity,
+            // ignore: deprecated_member_use
+            child: RaisedButton(
+              child: Text(
+                "Lihat Kategori",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'CandaraBold',
+                ),
+              ),
+              textColor: Colors.white,
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(60.0)
+              ),
+              onPressed: ()  {
+                Navigator.pushNamed(context, '/');
               },
             ),
           ),

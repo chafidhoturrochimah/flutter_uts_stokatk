@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_uts_stokatk/Helpers/DbHelper.dart';
 import 'package:flutter_uts_stokatk/Models/Barang.dart';
 import 'package:flutter_uts_stokatk/Models/Kategori.dart';
+import 'package:sqflite/sqflite.dart';
 
-class EntryForm extends StatefulWidget {
+class EntryFormBarang extends StatefulWidget {
   final Barang barang;
 
-  EntryForm(this.barang);
+  EntryFormBarang(this.barang);
 
   @override
-  EntryFormState createState() => EntryFormState(this.barang);
+  EntryFormBarangState createState() => EntryFormBarangState(this.barang);
+  
 }
 
 //class controller
-class EntryFormState extends State<EntryForm> {
+class EntryFormBarangState extends State<EntryFormBarang> {
   Barang barang;
-  Kategori kategori;
 
-  EntryFormState(this.barang, this.kategori);
+  EntryFormBarangState(this.barang);
 
   TextEditingController kodeBrgController = TextEditingController();
-  TextEditingController kategoriController = TextEditingController();
+  TextEditingController idkategoriController = TextEditingController();
   TextEditingController namaBrgController = TextEditingController();
   TextEditingController hargaController = TextEditingController();
   TextEditingController stokAwalController = TextEditingController();
@@ -27,12 +29,32 @@ class EntryFormState extends State<EntryForm> {
   TextEditingController outBrgController = TextEditingController();
   TextEditingController stokAkhirController = TextEditingController();
 
+  String dropdownkategori;
+  DbHelper dbHelper = DbHelper();
+
+  int count = 0;
+  List<Kategori> itemList;
+
+  void dropDownKategori() async {
+    final Future<Database> dbFuture = dbHelper.initDb();
+    dbFuture.then((database) {
+      Future<List<Kategori>> itemListFuture = dbHelper.getKategoriList();
+      itemListFuture.then((itemList) {
+        setState(() {
+          this.itemList = itemList;
+          this.dropdownkategori = itemList[0].idkategori.toString();
+          this.count = itemList.length;
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     //kondisi
     if (barang != null) {
       kodeBrgController.text = barang.kodeBrg;
-      kategoriController.text = barang.kategori;
+      idkategoriController.text = barang.idkategori.toString();
       namaBrgController.text = barang.namaBrg;
       hargaController.text = barang.harga.toString();
       stokAwalController.text = barang.stokAwal.toString();
@@ -68,7 +90,15 @@ class EntryFormState extends State<EntryForm> {
             },
           ),
         ),
-        backgroundColor: Colors.red[300],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xff0096ff), Color(0xff6610f2)],
+              begin: FractionalOffset.bottomLeft,
+              end: FractionalOffset.topRight
+            )
+          ),
+        ),
       ),
 
       body: Padding(
@@ -93,6 +123,29 @@ class EntryFormState extends State<EntryForm> {
                 onChanged: (value) {
                   //
                 },
+              ),
+            ),
+
+            // idkategori 
+            Padding(
+              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: DropdownButton<String>(
+                isExpanded: true,
+                value: dropdownkategori,
+                items: itemList.map((value) {
+                  return new DropdownMenuItem<String>(
+                    value: value.idkategori.toString(),
+                    child: new Text(
+                      value.namakategori,
+                      style: TextStyle(
+                        fontFamily: 'Candara'
+                      ),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (selectedItem) => setState(() {
+                  dropdownkategori = selectedItem;
+                }),
               ),
             ),
 
@@ -124,7 +177,7 @@ class EntryFormState extends State<EntryForm> {
                 controller: hargaController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                  labelText: 'Satuan',
+                  labelText: 'Harga',
                   labelStyle: TextStyle(
                     fontFamily: 'Candara',
                   ),
@@ -265,7 +318,7 @@ class EntryFormState extends State<EntryForm> {
                             // tambah data
                             barang = Barang(
                               kodeBrgController.text,
-                              kategoriController.text,
+                              int.parse(idkategoriController.text),
                               namaBrgController.text,
                               int.parse(hargaController.text),
                               int.parse(stokAwalController.text),
@@ -276,7 +329,7 @@ class EntryFormState extends State<EntryForm> {
                           } else {
                             // ubah data
                             barang.kodeBrg = kodeBrgController.text;
-                            barang.kategori = kategoriController.text;
+                            barang.idkategori = int.parse(idkategoriController.text);
                             barang.namaBrg = namaBrgController.text;
                             barang.harga = int.parse(hargaController.text);
                             barang.stokAwal = int.parse(stokAwalController.text);

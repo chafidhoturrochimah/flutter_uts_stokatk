@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_uts_stokatk/Helpers/DbHelper.dart';
-import 'package:flutter_uts_stokatk/Models/Barang.dart';
+import 'package:flutter_uts_stokatk/Models/Kategori.dart';
+import 'package:flutter_uts_stokatk/UI/EntryFormKategori.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'EntryFormBarang.dart';
 
 //pendukung program asinkron
-class Home extends StatefulWidget {
+class HomeKategori extends StatefulWidget {
   @override
-  HomeState createState() => HomeState();
+  HomeKategoriState createState() => HomeKategoriState();
 }
 
-class HomeState extends State<Home> {
+class HomeKategoriState extends State<HomeKategori> {
   DbHelper dbHelper = DbHelper();
 
   int count = 0;
   
-  List<Barang> itemList;
+  List<Kategori> itemList;
 
   @override
   Widget build(BuildContext context) {
     updateListView();
     if (itemList == null) {
       // ignore: deprecated_member_use
-      itemList = List<Barang>();
+      itemList = List<Kategori>();
     }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Daftar Stok Barang',
+          'Daftar Kategori',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'CandaraBold',
@@ -72,7 +73,7 @@ class HomeState extends State<Home> {
             // ignore: deprecated_member_use
             child: RaisedButton(
               child: Text(
-                "Tambah Barang",
+                "Tambah Kategori",
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'CandaraBold',
@@ -87,7 +88,7 @@ class HomeState extends State<Home> {
                 var item = await navigateToEntryForm(context, null);
                 if (item != null) {
                   //TODO 2 Panggil Fungsi untuk Insert ke DB
-                  int result = await dbHelper.insertBarang(item);
+                  int result = await dbHelper.insertKategori(item);
                   if (result > 0) {
                     updateListView();
                   }
@@ -100,12 +101,12 @@ class HomeState extends State<Home> {
     );
   }
 
-  Future<Barang> navigateToEntryForm(BuildContext context, Barang barang) async {
+  Future<Kategori> navigateToEntryForm(BuildContext context, Kategori kategori) async {
     var result = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return EntryFormBarang(barang);
+          return EntryFormKategori(kategori);
         }
       )
     );
@@ -126,38 +127,19 @@ class HomeState extends State<Home> {
               backgroundColor: Colors.amber,
               child: Icon(Icons.people),
             ),
-            title: Text(
-              this.itemList[index].kodeBrg,
-              style: TextStyle(
-                fontFamily: 'CandaraBold',
+            title: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Kategori : ' + this.itemList[index].namakategori,
+                    style: TextStyle(
+                      fontFamily: 'Candara',
+                    ),
+                  ),
+                ],
               ),
             ),
-            subtitle: 
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Kategori : ' + this.itemList[index].idkategori.toString(),
-                      style: TextStyle(
-                        fontFamily: 'Candara',
-                      ),
-                    ),
-                    Text(
-                      'Nama : ' + this.itemList[index].namaBrg,
-                      style: TextStyle(
-                        fontFamily: 'Candara',
-                      ),
-                    ),
-                    Text(
-                      'Stok : ' + this.itemList[index].stokAkhir.toString(),
-                      style: TextStyle(
-                        fontFamily: 'Candara',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             trailing: GestureDetector(
               child: Icon(
                 Icons.delete,
@@ -165,7 +147,7 @@ class HomeState extends State<Home> {
               ),
               onTap: () async {
                 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-                int result = await dbHelper.deleteBarang(this.itemList[index]);
+                int result = await dbHelper.deleteKategori(this.itemList[index]);
                 updateListView();
               },
             ),
@@ -173,7 +155,7 @@ class HomeState extends State<Home> {
               var item =
               await navigateToEntryForm(context, this.itemList[index]);
               //TODO 4 Panggil Fungsi untuk Edit data
-              int result = await dbHelper.updateBarang(item);
+              int result = await dbHelper.updateKategori(item);
               updateListView();
             },
           ),
@@ -187,7 +169,7 @@ class HomeState extends State<Home> {
     final Future<Database> dbFuture = dbHelper.initDb();
     dbFuture.then((database) {
       //TODO 1 Select data dari DB
-      Future<List<Barang>> itemListFuture = dbHelper.getItemList();
+      Future<List<Kategori>> itemListFuture = dbHelper.getKategoriList();
       itemListFuture.then((itemList) {
         setState(() {
           this.itemList = itemList;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_uts_stokatk/Models/Barang.dart';
+import 'package:flutter_uts_stokatk/Models/Kategori.dart';
 
 class EntryForm extends StatefulWidget {
   final Barang barang;
@@ -13,12 +14,14 @@ class EntryForm extends StatefulWidget {
 //class controller
 class EntryFormState extends State<EntryForm> {
   Barang barang;
+  Kategori kategori;
 
-  EntryFormState(this.barang);
+  EntryFormState(this.barang, this.kategori);
 
   TextEditingController kodeBrgController = TextEditingController();
+  TextEditingController kategoriController = TextEditingController();
   TextEditingController namaBrgController = TextEditingController();
-  TextEditingController satuanController = TextEditingController();
+  TextEditingController hargaController = TextEditingController();
   TextEditingController stokAwalController = TextEditingController();
   TextEditingController inBrgController = TextEditingController();
   TextEditingController outBrgController = TextEditingController();
@@ -29,8 +32,9 @@ class EntryFormState extends State<EntryForm> {
     //kondisi
     if (barang != null) {
       kodeBrgController.text = barang.kodeBrg;
+      kategoriController.text = barang.kategori;
       namaBrgController.text = barang.namaBrg;
-      satuanController.text = barang.satuan;
+      hargaController.text = barang.harga.toString();
       stokAwalController.text = barang.stokAwal.toString();
       inBrgController.text = barang.inBrg.toString();
       outBrgController.text = barang.outBrg.toString();
@@ -64,15 +68,7 @@ class EntryFormState extends State<EntryForm> {
             },
           ),
         ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xff0096ff), Color(0xff6610f2)],
-              begin: FractionalOffset.bottomLeft,
-              end: FractionalOffset.topRight
-            )
-          ),
-        ),
+        backgroundColor: Colors.red[300],
       ),
 
       body: Padding(
@@ -121,11 +117,11 @@ class EntryFormState extends State<EntryForm> {
               ),
             ),
 
-            // satuan barang
+            // harga barang
             Padding(
               padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
               child: TextField(
-                controller: satuanController,
+                controller: hargaController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: 'Satuan',
@@ -269,8 +265,9 @@ class EntryFormState extends State<EntryForm> {
                             // tambah data
                             barang = Barang(
                               kodeBrgController.text,
+                              kategoriController.text,
                               namaBrgController.text,
-                              satuanController.text,
+                              int.parse(hargaController.text),
                               int.parse(stokAwalController.text),
                               int.parse(inBrgController.text),
                               int.parse(outBrgController.text),
@@ -279,8 +276,9 @@ class EntryFormState extends State<EntryForm> {
                           } else {
                             // ubah data
                             barang.kodeBrg = kodeBrgController.text;
+                            barang.kategori = kategoriController.text;
                             barang.namaBrg = namaBrgController.text;
-                            barang.satuan = satuanController.text;
+                            barang.harga = int.parse(hargaController.text);
                             barang.stokAwal = int.parse(stokAwalController.text);
                             barang.inBrg = int.parse(inBrgController.text);
                             barang.outBrg = int.parse(outBrgController.text);

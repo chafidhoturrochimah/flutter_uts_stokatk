@@ -101,7 +101,7 @@ class DbHelper {
   Future<int> deleteBarang(Barang object) async {
     Database db = await this.initDb();
     int count = await db.delete(
-      'barang', 
+      'barang',  
       where: 'id=?', 
       whereArgs: [object.id]
     );
@@ -130,7 +130,7 @@ class DbHelper {
     //List<Map> list = await db.rawQuery('SELECT * FROM kategori');
     var mapList = await db.query(
       'kategori', 
-      orderBy: 'namakategori'
+      orderBy: 'idkategori'
     );
     return mapList;
   }
@@ -160,9 +160,16 @@ class DbHelper {
   //delete databases
   Future<int> deleteKategori(Kategori object) async {
     Database db = await this.initDb();
-    int count = await db.delete(
+    int count = 
+    await db.delete(
       'kategori', 
-      where: 'idkategori=?', 
+      where: 'idkategori=?',  
+      whereArgs: [object.idkategori]
+    );
+    //untuk menghapsus idkategori yang ada di list view home barang
+    await db.delete(
+      'barang', 
+      where: 'idkategori=?',  
       whereArgs: [object.idkategori]
     );
     return count;

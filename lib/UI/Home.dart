@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_uts_stokatk/Helpers/DbHelper.dart';
 import 'package:flutter_uts_stokatk/Models/Barang.dart';
+import 'package:flutter_uts_stokatk/Models/Kategori.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'EntryFormBarang.dart';

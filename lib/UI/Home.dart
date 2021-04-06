@@ -167,8 +167,8 @@ class HomeState extends State<Home> {
           elevation: 2.0,
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.amber,
-              child: Icon(Icons.people),
+              backgroundColor: Colors.purple[100],
+              child: Icon(Icons.book),
             ),
             title: Text(
               this.itemList[index].kodeBrg,

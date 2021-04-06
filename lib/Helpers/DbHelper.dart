@@ -67,7 +67,7 @@ class DbHelper {
   //select databases
   Future<List<Map<String, dynamic>>> selectBarang() async {
     Database db = await this.initDb();
-    List<Map> list = await db.rawQuery('SELECT * FROM barang');
+    //List<Map> list = await db.rawQuery('SELECT * FROM barang');
     var mapList = await db.query(
       'barang', 
       orderBy: 'kodeBrg'
@@ -127,7 +127,7 @@ class DbHelper {
   //select databases
   Future<List<Map<String, dynamic>>> selectKategori() async {
     Database db = await this.initDb();
-    List<Map> list = await db.rawQuery('SELECT * FROM kategori');
+    //List<Map> list = await db.rawQuery('SELECT * FROM kategori');
     var mapList = await db.query(
       'kategori', 
       orderBy: 'namakategori'

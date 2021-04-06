@@ -169,15 +169,15 @@ class HomeKategoriState extends State<HomeKategori> {
           elevation: 2.0,
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.amber,
-              child: Icon(Icons.people),
+              backgroundColor: Colors.blue[100],
+              child: Icon(Icons.category),
             ),
             title: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Kategori : ' + this.itemList[index].namakategori,
+                    this.itemList[index].namakategori,
                     style: TextStyle(
                       fontFamily: 'Candara',
                     ),

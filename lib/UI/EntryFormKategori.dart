@@ -33,7 +33,7 @@ class EntryFormKategoriState extends State<EntryFormKategori> {
       appBar: AppBar(
         title: kategori == null ? 
         Text(
-          'Tambah',
+          'Tambah Kategori',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'CandaraBold',
@@ -41,7 +41,7 @@ class EntryFormKategoriState extends State<EntryFormKategori> {
         ) 
         : 
         Text(
-          'Ubah',
+          'Ubah Kategori',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'CandaraBold',

@@ -33,7 +33,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
   DbHelper dbHelper = DbHelper();
 
   int count = 0;
-  List<Kategori> itemList;
+  List<Kategori> itemList = [];
 
   void dropDownKategori() async {
     final Future<Database> dbFuture = dbHelper.initDb();
@@ -48,6 +48,11 @@ class EntryFormBarangState extends State<EntryFormBarang> {
         });
       });
     });
+  }
+
+  void initState() {
+    super.initState();
+    dropDownKategori();
   }
 
   @override
@@ -69,7 +74,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
       appBar: AppBar(
         title: barang == null ? 
         Text(
-          'Tambah',
+          'Tambah Barang',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'CandaraBold',
@@ -77,7 +82,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
         ) 
         : 
         Text(
-          'Ubah',
+          'Ubah Barang',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'CandaraBold',
@@ -176,7 +181,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
               padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
               child: TextField(
                 controller: hargaController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Harga',
                   labelStyle: TextStyle(
@@ -319,7 +324,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
                             // tambah data
                             barang = Barang(
                               kodeBrgController.text,
-                              int.parse(idkategoriController.text),
+                              int.parse(dropdownkategori),
                               namaBrgController.text,
                               int.parse(hargaController.text),
                               int.parse(stokAwalController.text),
@@ -330,7 +335,7 @@ class EntryFormBarangState extends State<EntryFormBarang> {
                           } else {
                             // ubah data
                             barang.kodeBrg = kodeBrgController.text;
-                            barang.idkategori = int.parse(idkategoriController.text);
+                            barang.idkategori = int.parse(dropdownkategori);
                             barang.namaBrg = namaBrgController.text;
                             barang.harga = int.parse(hargaController.text);
                             barang.stokAwal = int.parse(stokAwalController.text);
